@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Renderiza vetorialmente o mesmo ícone com fundo squircle e cartão de crédito esmeralda
-/// com chip EMV dourado, idêntico à filosofia do [BioStatsAppIcon].
+/// Renderiza vetorialmente o ícone do FinStats com fundo squircle e cartão de crédito esmeralda
+/// retangular (proporção oficial 1.59:1) com chip EMV dourado, sem logos de texto no topo,
+/// mantendo a mesma filosofia visual do [BioStatsAppIcon].
 class FinStatsAppIcon extends StatelessWidget {
   final double size;
 
@@ -44,10 +45,10 @@ class FinStatsAppIcon extends StatelessWidget {
             ),
           ),
 
-          // Central Financial Card Pass (#10B981 -> #047857)
+          // Cartão de Crédito Retangular (#10B981 -> #047857) - Proporção 1.59:1
           Container(
-            width: 300 * s,
-            height: 260 * s,
+            width: 350 * s,
+            height: 220 * s,
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
@@ -57,10 +58,10 @@ class FinStatsAppIcon extends StatelessWidget {
                   Color(0xFF047857),
                 ],
               ),
-              borderRadius: BorderRadius.circular(52 * s),
+              borderRadius: BorderRadius.circular(28 * s),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF047857).withValues(alpha: 0.32),
+                  color: const Color(0xFF047857).withValues(alpha: 0.35),
                   blurRadius: 20 * s,
                   offset: Offset(0, 14 * s),
                 ),
@@ -68,37 +69,12 @@ class FinStatsAppIcon extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                // Display / Balance Screen Pill
-                Positioned(
-                  left: 65 * s,
-                  top: 24 * s,
-                  width: 170 * s,
-                  height: 54 * s,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.96),
-                      borderRadius: BorderRadius.circular(18 * s),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      'R\$ FIN',
-                      style: TextStyle(
-                        fontSize: 24 * s,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -0.5 * s,
-                        color: const Color(0xFF047857),
-                        height: 1.0,
-                      ),
-                    ),
-                  ),
-                ),
-
                 // EMV Gold Chip
                 Positioned(
-                  left: 32 * s,
-                  top: 96 * s,
-                  width: 60 * s,
-                  height: 46 * s,
+                  left: 36 * s,
+                  top: 46 * s,
+                  width: 64 * s,
+                  height: 48 * s,
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
@@ -132,20 +108,56 @@ class FinStatsAppIcon extends StatelessWidget {
 
                 // Contactless Icon Waves
                 Positioned(
-                  left: 104 * s,
-                  top: 105 * s,
+                  left: 118 * s,
+                  top: 54 * s,
                   child: Icon(
                     Icons.contactless_rounded,
-                    size: 28 * s,
-                    color: Colors.white.withValues(alpha: 0.5),
+                    size: 32 * s,
+                    color: Colors.white.withValues(alpha: 0.65),
                   ),
                 ),
 
-                // Embossed Dots & Card Number
+                // Círculos Holográficos no Canto Superior Direito
                 Positioned(
-                  left: 32 * s,
-                  bottom: 22 * s,
-                  right: 32 * s,
+                  right: 36 * s,
+                  top: 42 * s,
+                  child: SizedBox(
+                    width: 54 * s,
+                    height: 36 * s,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          child: Container(
+                            width: 34 * s,
+                            height: 34 * s,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white.withValues(alpha: 0.22),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            width: 34 * s,
+                            height: 34 * s,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white.withValues(alpha: 0.16),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Pontos e Numeração em Relevo na Base
+                Positioned(
+                  left: 36 * s,
+                  bottom: 26 * s,
+                  right: 36 * s,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -153,11 +165,11 @@ class FinStatsAppIcon extends StatelessWidget {
                         children: List.generate(
                           4,
                           (i) => Container(
-                            margin: EdgeInsets.only(right: 4 * s),
+                            margin: EdgeInsets.only(right: 5 * s),
                             width: 6 * s,
                             height: 6 * s,
                             decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.4),
+                              color: Colors.white.withValues(alpha: 0.45),
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -166,10 +178,10 @@ class FinStatsAppIcon extends StatelessWidget {
                       Text(
                         '•••• 8829',
                         style: TextStyle(
-                          fontSize: 16 * s,
+                          fontSize: 18 * s,
                           fontWeight: FontWeight.w700,
-                          letterSpacing: 1 * s,
-                          color: Colors.white.withValues(alpha: 0.85),
+                          letterSpacing: 1.5 * s,
+                          color: Colors.white.withValues(alpha: 0.9),
                         ),
                       ),
                     ],
