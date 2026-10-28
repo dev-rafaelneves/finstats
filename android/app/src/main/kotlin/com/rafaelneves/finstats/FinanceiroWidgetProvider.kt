@@ -1,4 +1,4 @@
-package com.financeiro.financeiro
+package com.rafaelneves.finstats
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
