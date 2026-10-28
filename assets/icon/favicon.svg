@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#047857" flood-opacity="0.30" />
+    </filter>
+  </defs>
+  
+  <!-- App Icon Background (Squircle) -->
+  <rect x="32" y="32" width="448" height="448" rx="100" ry="100" fill="url(#bgGrad)" />
+  
+  <!-- Financial Pass Card Body -->
+  <rect x="106" y="126" width="300" height="260" rx="52" ry="52" fill="url(#cardGrad)" filter="url(#shadow)" />
+  
+  <!-- EMV Gold Chip -->
+  <rect x="142" y="210" width="60" height="46" rx="10" fill="url(#chipGrad)" />
+  <line x1="142" y1="233" x2="202" y2="233" stroke="#92400E" stroke-width="2" opacity="0.6" />
+  <line x1="172" y1="210" x2="172" y2="256" stroke="#92400E" stroke-width="2" opacity="0.6" />
+  
+  <!-- Contactless NFC waves -->
+  <path d="M 235 218 A 18 18 0 0 1 235 248" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.45" />
+  <path d="M 245 212 A 28 28 0 0 1 245 254" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.45" />
+  
+  <!-- Display / Balance Badge Screen -->
+  <rect x="176" y="150" width="160" height="52" rx="18" ry="18" fill="#ffffff" opacity="0.96" />
+  
+  <!-- FinStats Typography -->
+  <text x="256" y="186" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="800" fill="#047857" text-anchor="middle" letter-spacing="-0.5">R$ FIN</text>
+  
+  <!-- Embossed Card Details -->
+  <circle cx="152" cy="336" r="5" fill="#ffffff" opacity="0.35" />
+  <circle cx="168" cy="336" r="5" fill="#ffffff" opacity="0.35" />
+  <circle cx="184" cy="336" r="5" fill="#ffffff" opacity="0.35" />
+  <circle cx="200" cy="336" r="5" fill="#ffffff" opacity="0.35" />
+  <text x="350" y="342" font-family="system-ui, -apple-system, monospace" font-size="20" font-weight="700" fill="#ffffff" opacity="0.8" text-anchor="end">•••• 8829</text>
+</svg>

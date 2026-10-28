@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../models/models.dart';
@@ -9,6 +8,7 @@ import '../../widgets/finance_chart.dart';
 import '../../widgets/financial_health_insight_card.dart';
 import '../../widgets/ios_grouped_section.dart';
 import '../../widgets/ios_list_tile.dart';
+import '../../widgets/ios_month_navigator.dart';
 import '../../widgets/summary_card.dart';
 import '../credit_cards_screen.dart';
 import '../monthly_comparator_screen.dart';
@@ -23,75 +23,6 @@ class DashboardTab extends StatelessWidget {
     required this.appState,
     required this.onOpenNewTransaction,
   });
-
-  void _showMonthPicker(BuildContext context) {
-    final selectedMonth = appState.selectedMonth;
-    showCupertinoModalPopup(
-      context: context,
-      builder: (ctx) {
-        DateTime tempDate = selectedMonth;
-        return Container(
-          height: 280,
-          color: Theme.of(context).brightness == Brightness.dark
-              ? AppColors.darkSurface
-              : AppColors.lightSurface,
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.darkBorder
-                          : AppColors.lightBorder,
-                      width: 0.8,
-                    ),
-                  ),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () => Navigator.of(ctx).pop(),
-                      child: const Text('Cancelar', style: TextStyle(color: AppColors.rose)),
-                    ),
-                    const Text(
-                      'Selecionar Mês',
-                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                    ),
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {
-                        appState.setSelectedMonth(tempDate);
-                        Navigator.of(ctx).pop();
-                      },
-                      child: const Text(
-                        'Confirmar',
-                        style: TextStyle(color: AppColors.emeraldDark, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  initialDateTime: selectedMonth,
-                  minimumDate: DateTime(2020, 1),
-                  maximumDate: DateTime(2035, 12),
-                  onDateTimeChanged: (date) {
-                    tempDate = DateTime(date.year, date.month, 1);
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,32 +63,6 @@ class DashboardTab extends StatelessWidget {
               ),
             ),
             actions: [
-              // Seletor de Mês iOS
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: CupertinoButton(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  color: isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0),
-                  borderRadius: BorderRadius.circular(16),
-                  onPressed: () => _showMonthPicker(context),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        CurrencyFormatter.formatMonthYear(selectedMonth),
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w600,
-                          color: textPrimary,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: textSecondary),
-                    ],
-                  ),
-                ),
-              ),
-
               // Botão Comparador
               IconButton(
                 tooltip: 'Comparador Mês a Mês',
@@ -194,8 +99,18 @@ class DashboardTab extends StatelessWidget {
             ],
           ),
 
+          // Seletor de Mês Interativo iOS HIG (com setas rápidas e sheet de grade)
+          SliverToBoxAdapter(
+            child: IosMonthNavigator(
+              selectedMonth: selectedMonth,
+              onMonthChanged: (newMonth) {
+                appState.setSelectedMonth(newMonth);
+              },
+            ),
+          ),
+
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(0, 8, 0, 100),
+            padding: const EdgeInsets.fromLTRB(0, 4, 0, 100),
             sliver: SliverToBoxAdapter(
               child: Center(
                 child: ConstrainedBox(

@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../services/app_state.dart';
 import '../theme/app_theme.dart';
 import '../utils/currency_formatter.dart';
 import '../widgets/ios_grouped_section.dart';
+import '../widgets/ios_month_picker_sheet.dart';
 
 class MonthlyComparatorScreen extends StatefulWidget {
   final AppState appState;
@@ -38,75 +38,17 @@ class _MonthlyComparatorScreenState extends State<MonthlyComparatorScreen> {
 
   void _selectMonth({required bool isBase}) {
     final current = isBase ? _baseMonth : _compareMonth;
-    showCupertinoModalPopup(
+    IosMonthPickerSheet.show(
       context: context,
-      builder: (ctx) {
-        DateTime tempDate = current;
-        return Container(
-          height: 280,
-          color: Theme.of(context).brightness == Brightness.dark
-              ? AppColors.darkSurface
-              : AppColors.lightSurface,
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.darkBorder
-                          : AppColors.lightBorder,
-                      width: 0.8,
-                    ),
-                  ),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () => Navigator.of(ctx).pop(),
-                      child: const Text('Cancelar', style: TextStyle(color: AppColors.rose)),
-                    ),
-                    Text(
-                      isBase ? 'Mês Base (A)' : 'Mês Comparado (B)',
-                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                    ),
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {
-                        setState(() {
-                          if (isBase) {
-                            _baseMonth = tempDate;
-                          } else {
-                            _compareMonth = tempDate;
-                          }
-                        });
-                        Navigator.of(ctx).pop();
-                      },
-                      child: const Text(
-                        'Confirmar',
-                        style: TextStyle(color: AppColors.emeraldDark, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.date,
-                  initialDateTime: current,
-                  minimumDate: DateTime(2020, 1),
-                  maximumDate: DateTime(2035, 12),
-                  onDateTimeChanged: (date) {
-                    tempDate = DateTime(date.year, date.month, 1);
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
+      selectedMonth: current,
+      onMonthSelected: (picked) {
+        setState(() {
+          if (isBase) {
+            _baseMonth = picked;
+          } else {
+            _compareMonth = picked;
+          }
+        });
       },
     );
   }
